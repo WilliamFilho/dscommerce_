@@ -1,6 +1,7 @@
 package com.wnet.dscommerce.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,4 +21,8 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
+
+    public Category() {
+
+    }
 }
