@@ -4,6 +4,7 @@ import com.wnet.dscommerce.dto.ProductDTO;
 import com.wnet.dscommerce.entities.Product;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,5 +21,9 @@ public class ProductAssembler {
 
     public List<ProductDTO> toCollectionModel(List<Product> products) {
         return products.stream().map(this::toModel).collect(Collectors.toList());
+    }
+
+    public Page<ProductDTO> toCollectionModel(Page<Product> products) {
+        return products.map(this::toModel);
     }
 }
