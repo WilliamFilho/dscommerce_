@@ -19,14 +19,17 @@ public class ProductAssembler {
         return modelMapper.map(product, ProductDTO.class);
     }
 
+    //qdo precisar de um List...
     public List<ProductDTO> toCollectionModel(List<Product> products) {
         return products.stream().map(this::toModel).collect(Collectors.toList());
     }
 
+    //qdo precisar de um List paginado...
     public Page<ProductDTO> toCollectionModel(Page<Product> products) {
         return products.map(this::toModel);
     }
 
+    //de DTO para Entity
     public Product toEntity(ProductDTO dto){
         return modelMapper.map(dto, Product.class);
     }

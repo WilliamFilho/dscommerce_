@@ -7,6 +7,7 @@ import com.wnet.dscommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,14 @@ public class ProductService {
     @Autowired
     private ProductAssembler assembler;
 
-    @Transactional(readOnly = true)
+    /*
+    @Transactional(readOnly = true) //Serviço não deve conhecer/fornecer HTTP
+    public ResponseEntity<ProductDTO> findById(Long id) {
+        return repository.findById(id).map(product -> ResponseEntity.ok(assembler.toModel(product))).orElse(ResponseEntity.notFound().build());
+    }
+
+    //Passo para o Controller a responsabilidade de fornecer código de erro adequado.
+    */@Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
         return repository.findById(id).map(product -> assembler.toModel(product)).orElse(null);
     }
@@ -37,8 +45,9 @@ public class ProductService {
     }
     */
     @Transactional
-    public ProductDTO insert(ProductDTO dto) { //já envio convertido
+    public ProductDTO insert(ProductDTO dto) { //já envio convertido (DTO)
         Product newProduct = assembler.toEntity(dto);
+        repository.save(newProduct);
         return assembler.toModel(newProduct);
     }
 
