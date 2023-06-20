@@ -26,4 +26,8 @@ public class ProductAssembler {
     public Page<ProductDTO> toCollectionModel(Page<Product> products) {
         return products.map(this::toModel);
     }
+
+    public Product toEntity(ProductDTO dto){
+        return modelMapper.map(dto, Product.class);
+    }
 }
