@@ -5,6 +5,7 @@ import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.repositories.ProductRepository;
 import com.wnet.dscommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

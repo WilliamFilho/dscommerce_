@@ -1,7 +1,11 @@
 package com.wnet.dscommerce.dto;
 
 import com.wnet.dscommerce.entities.Product;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class ProductDTO {
     private Long id;
     private String name;
@@ -9,18 +13,8 @@ public class ProductDTO {
     private Double price;
     private String imgUrl;
 
-    public ProductDTO() {
-    }
-
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-    }
-
-
+    //Alternativa cabulosa
+    /*
     public ProductDTO(Product entity){
         id = entity.getId();
         name = entity.getName();
@@ -28,24 +22,6 @@ public class ProductDTO {
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
     }
+     */
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
 }
