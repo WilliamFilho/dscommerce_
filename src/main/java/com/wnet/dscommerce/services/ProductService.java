@@ -4,6 +4,7 @@ import com.wnet.dscommerce.assembler.ProductAssembler;
 import com.wnet.dscommerce.dto.ProductDTO;
 import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.repositories.ProductRepository;
+import com.wnet.dscommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class ProductService {
     */
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        return repository.findById(id).map(product -> assembler.toModel(product)).orElse(null);
+        return repository.findById(id).map(product -> assembler.toModel(product)).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado!"));
     }
 
     @Transactional(readOnly = true)
