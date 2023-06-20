@@ -7,12 +7,8 @@ import com.wnet.dscommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -51,4 +47,21 @@ public class ProductService {
         return assembler.toModel(newProduct);
     }
 
+    @Transactional
+    public ProductDTO uptade(Long id, ProductDTO dto) { //já envio convertido (DTO)
+        Product editProduct = assembler.toEntity(dto);
+        editProduct.setId(id);
+        repository.save(editProduct);
+        return assembler.toModel(editProduct);
+    }
 }
+/*
+    @Transactional
+    public Cliente salvar(Cliente cliente){
+        boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail()).stream().anyMatch(c -> !c.equals(cliente));
+        if (emailEmUso){
+            throw new NegocioException("Já existe um cliente cadastrado com este e-mail!");
+        }
+        return clienteRepository.save(cliente);
+    }
+ */
