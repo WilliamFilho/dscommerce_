@@ -4,12 +4,18 @@ import com.wnet.dscommerce.assembler.ProductAssembler;
 import com.wnet.dscommerce.dto.ProductDTO;
 import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.repositories.ProductRepository;
+import com.wnet.dscommerce.services.exceptions.DatabaseException;
 import com.wnet.dscommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -51,18 +57,29 @@ public class ProductService {
 
     @Transactional
     public ProductDTO uptade(Long id, ProductDTO dto) { //já envio convertido (DTO)
-        Product editProduct = assembler.toEntity(dto);
-        editProduct.setId(id);
-        repository.save(editProduct);
-        return assembler.toModel(editProduct);
+            Product product;
+            Optional<Product> p = repository.findById(id);
+            if (p.isPresent()) {
+                product = assembler.toEntity(dto);
+                product.setId(id);
+                repository.save(product);
+            }else {
+                throw new EntityNotFoundException("Recurso não encontrado!");
+            }
+            return assembler.toModel(product);
     }
 
-    @Transactional
+
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            //if(!repository.existsById(id));
+            repository.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+                throw new DatabaseException("Falha na Integridade Referencial!");
+        }
     }
 }
-
 
 /*
     @Transactional
