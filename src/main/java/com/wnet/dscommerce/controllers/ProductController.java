@@ -2,7 +2,6 @@ package com.wnet.dscommerce.controllers;
 
 import com.wnet.dscommerce.assembler.ProductAssembler;
 import com.wnet.dscommerce.dto.ProductDTO;
-import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -32,15 +30,15 @@ public class ProductController {
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     //Paginação /products?size=1&page=1&sort=name
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable){
+    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
-       // return service.findAll(pageable);
+        // return service.findAll(pageable);
     }
 
     /*
@@ -53,7 +51,7 @@ public class ProductController {
      */
 
     @PostMapping
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto){
+    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -62,7 +60,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto){
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
         return ResponseEntity.ok(service.uptade(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

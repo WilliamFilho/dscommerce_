@@ -24,7 +24,8 @@ public class ProductService {
     }
 
     //Passo para o Controller a responsabilidade de fornecer código de erro adequado.
-    */@Transactional(readOnly = true)
+    */
+    @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
         return repository.findById(id).map(product -> assembler.toModel(product)).orElse(null);
     }
@@ -54,7 +55,14 @@ public class ProductService {
         repository.save(editProduct);
         return assembler.toModel(editProduct);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
+
+
 /*
     @Transactional
     public Cliente salvar(Cliente cliente){
