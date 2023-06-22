@@ -57,16 +57,12 @@ public class ProductService {
 
     @Transactional
     public ProductDTO uptade(Long id, ProductDTO dto) { //já envio convertido (DTO)
-            Product product;
-            Optional<Product> p = repository.findById(id);
-            if (p.isPresent()) {
-                product = assembler.toEntity(dto);
-                product.setId(id);
-                repository.save(product);
-            }else {
-                throw new EntityNotFoundException("Recurso não encontrado!");
-            }
+        return repository.findById(id).map(product ->  {
+            product = assembler.toEntity(dto);
+            product.setId(id);
+            repository.save(product);
             return assembler.toModel(product);
+        }).orElseThrow(()-> new EntityNotFoundException("Recurso não encontrado!"));
     }
 
 
