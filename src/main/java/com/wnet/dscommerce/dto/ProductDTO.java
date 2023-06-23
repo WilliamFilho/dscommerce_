@@ -23,7 +23,7 @@ public class ProductDTO {
     private Double price;
     private String imgUrl;
 
-    //Alternativa cabulosa
+    //Alternativa
     /*
     public ProductDTO(Product entity){
         id = entity.getId();

@@ -25,7 +25,7 @@ public class ProductAssembler {
     }
 
     //qdo precisar de um List paginado...
-    public Page<ProductDTO> toCollectionModel(Page<Product> products) {
+    public Page<ProductDTO> toCollectionModelPage(Page<Product> products) {
         return products.map(this::toModel);
     }
 

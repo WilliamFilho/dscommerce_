@@ -1,10 +1,9 @@
 package com.wnet.dscommerce.controllers;
 
-import com.wnet.dscommerce.assembler.ProductAssembler;
 import com.wnet.dscommerce.dto.ProductDTO;
 import com.wnet.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +14,13 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
 
-    @Autowired
     private ProductService service;
 
-    @Autowired
-    private ProductAssembler assembler;
+
+    //private ProductAssembler assembler;
 
     /*
     @GetMapping("/{id}")
@@ -35,13 +34,12 @@ public class ProductController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    //Paginação /products?size=1&page=1&sort=name
+    //Paginação /products?name=th&size=1&page=1
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(pageable));
+    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(name, pageable));
         // return service.findAll(pageable);
     }
-
     /*
     @PostMapping
     public ProductDTO create(@RequestBody ProductDTO dto){
