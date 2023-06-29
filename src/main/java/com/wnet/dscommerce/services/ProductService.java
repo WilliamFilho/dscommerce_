@@ -42,7 +42,7 @@ public class ProductService {
 
     /*
     @Transactional
-    public Product insert(Product product) {
+    public Product insert(Product product) {fs
         return repository.save(product);
     }
     */
