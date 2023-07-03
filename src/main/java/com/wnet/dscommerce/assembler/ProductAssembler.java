@@ -1,6 +1,7 @@
 package com.wnet.dscommerce.assembler;
 
 import com.wnet.dscommerce.dto.ProductDTO;
+import com.wnet.dscommerce.dto.ProductMinDTO;
 import com.wnet.dscommerce.entities.Product;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,10 @@ public class ProductAssembler {
         return modelMapper.map(product, ProductDTO.class);
     }
 
+    public ProductMinDTO toModelMin(Product product) {
+        return modelMapper.map(product, ProductMinDTO.class);
+    }
+
     //qdo precisar de um List...
     public List<ProductDTO> toCollectionModel(List<Product> products) {
         return products.stream().map(this::toModel).collect(Collectors.toList());
@@ -29,6 +34,9 @@ public class ProductAssembler {
         return products.map(this::toModel);
     }
 
+    public Page<ProductMinDTO> toCollectionModelMinPage(Page<Product> products) {
+        return products.map(this::toModelMin);
+    }
     //de DTO para Entity
     public Product toEntity(ProductDTO dto){
         return modelMapper.map(dto, Product.class);

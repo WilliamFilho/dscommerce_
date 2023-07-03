@@ -1,6 +1,7 @@
 package com.wnet.dscommerce.controllers;
 
 import com.wnet.dscommerce.dto.ProductDTO;
+import com.wnet.dscommerce.dto.ProductMinDTO;
 import com.wnet.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,8 @@ public class ProductController {
     //Paginação /products?name=th&size=1&page=1
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(name, pageable));
+    public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
+        return ResponseEntity.ok(service.findAllMin(name, pageable));
         // return service.findAll(pageable);
     }
     /*

@@ -2,6 +2,7 @@ package com.wnet.dscommerce.services;
 
 import com.wnet.dscommerce.assembler.ProductAssembler;
 import com.wnet.dscommerce.dto.ProductDTO;
+import com.wnet.dscommerce.dto.ProductMinDTO;
 import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.repositories.ProductRepository;
 import com.wnet.dscommerce.services.exceptions.DatabaseException;
@@ -38,6 +39,11 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAll(String name, Pageable pageable) {
         return assembler.toCollectionModelPage(repository.findByNameContainingIgnoreCase(name, pageable));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProductMinDTO> findAllMin(String name, Pageable pageable) {
+        return assembler.toCollectionModelMinPage(repository.findByNameContainingIgnoreCase(name, pageable));
     }
 
     /*
