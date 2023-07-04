@@ -1,8 +1,10 @@
 package com.wnet.dscommerce.services;
 
 import com.wnet.dscommerce.assembler.ProductAssembler;
+import com.wnet.dscommerce.dto.CategoryDTO;
 import com.wnet.dscommerce.dto.ProductDTO;
 import com.wnet.dscommerce.dto.ProductMinDTO;
+import com.wnet.dscommerce.entities.Category;
 import com.wnet.dscommerce.entities.Product;
 import com.wnet.dscommerce.repositories.ProductRepository;
 import com.wnet.dscommerce.services.exceptions.DatabaseException;
@@ -62,6 +64,11 @@ public class ProductService {
     @Transactional
     public ProductDTO uptade(Long id, ProductDTO dto) { //já envio convertido (DTO)
         return repository.findById(id).map(product ->  {
+            for(CategoryDTO catDTO: dto.getCategories()){
+                Category category = new Category();
+                category.setId(catDTO.getId());
+                product.getCategories().add(category);
+            }
             product = assembler.toEntity(dto);
             product.setId(id);
             repository.save(product);

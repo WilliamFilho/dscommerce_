@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 public class ProductDTO {
@@ -23,6 +26,11 @@ public class ProductDTO {
     private Double price;
     private String imgUrl;
 
+    List<CategoryDTO> categories = new ArrayList<>();
+
+    public void addCategory(CategoryDTO categoryDTO){
+        categories.add(categoryDTO);
+    }
     //Alternativa
     /*
     public ProductDTO(Product entity){
