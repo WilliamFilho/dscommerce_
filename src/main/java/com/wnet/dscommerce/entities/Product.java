@@ -1,5 +1,6 @@
 package com.wnet.dscommerce.entities;
 
+import com.wnet.dscommerce.dto.CategoryDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,6 +37,10 @@ public class Product {
 
     private List<Order> getOrders(){
         return items.stream().map(orderItem -> orderItem.getOrder()).toList();
+    }
+
+    public void addCategory(Category category){
+        categories.add(category);
     }
 
 }

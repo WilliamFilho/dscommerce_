@@ -67,7 +67,8 @@ public class ProductService {
             for(CategoryDTO catDTO: dto.getCategories()){
                 Category category = new Category();
                 category.setId(catDTO.getId());
-                product.getCategories().add(category);
+                product.addCategory(category);
+                // ou assim : product.getCategories().add(category);
             }
             product = assembler.toEntity(dto);
             product.setId(id);

@@ -1,7 +1,7 @@
 package com.wnet.dscommerce.controllers.handlers;
 
-import com.wnet.dscommerce.dto.CustomError;
-import com.wnet.dscommerce.dto.ValidationError;
+import com.wnet.dscommerce.dto.error.CustomError;
+import com.wnet.dscommerce.dto.error.ValidationError;
 import com.wnet.dscommerce.services.exceptions.DatabaseException;
 import com.wnet.dscommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,4 +1,4 @@
-package com.wnet.dscommerce.dto;
+package com.wnet.dscommerce.dto.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
