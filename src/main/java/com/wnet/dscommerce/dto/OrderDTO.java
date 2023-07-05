@@ -3,13 +3,16 @@ package com.wnet.dscommerce.dto;
 import com.wnet.dscommerce.entities.Order;
 import com.wnet.dscommerce.entities.OrderItem;
 import com.wnet.dscommerce.entities.OrderStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class OrderDTO {
     private Long id;
     private Instant moment;
@@ -22,15 +25,18 @@ public class OrderDTO {
     private List<OrderItemDTO>  items = new ArrayList<>();
 
     public OrderDTO(Order order){
-        id = order.getId();
-        moment = order.getMoment();
-        status = order.getStatus();
-        client = new ClientDTO(order.getClient());
-        payment = (order.getPayment() == null) ? null : new PaymentDTO(order.getPayment());
+        this.id = order.getId();
+        this.moment = order.getMoment();
+        this.status = order.getStatus();
+        this.client = new ClientDTO(order.getClient());
+        this.payment = (order.getPayment() == null) ? null : new PaymentDTO(order.getPayment());
         for (OrderItem item: order.getItems()){
             OrderItemDTO itemDTO = new OrderItemDTO(item);
-            items.add(itemDTO);
+            this.items.add(itemDTO);
         }
+    }
+
+    public OrderDTO() {
     }
 
     public Double getTotal(){
