@@ -12,11 +12,14 @@ public class OrderItemDTO {
     private Double price;
     private Integer quantity;
 
+    private String imgURL;
+
     public OrderItemDTO(OrderItem orderItem){
         productId = orderItem.getProduct().getId();
         name = orderItem.getProduct().getName();
         price = orderItem.getPrice();
         quantity = orderItem.getQuantity();
+        imgURL = orderItem.getProduct().getImgUrl();
     }
 
     public Double getSubTotal(){

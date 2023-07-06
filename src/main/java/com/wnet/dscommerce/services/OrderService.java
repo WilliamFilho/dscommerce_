@@ -26,9 +26,26 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private AuthService authService;
+
+    /*
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
-       return repository.findById(id).map(order -> new OrderDTO(order)).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado!"));
+       repository.findById(id).map(order -> {
+           authService.validateSelfOrAdmin(order.getClient().getId());
+           return new OrderDTO(order);
+       }).orElseThrow(()-> new ResourceNotFoundException("Recurso não encontrado!"));
+       return null;
+    }
+
+     */
+
+    @Transactional(readOnly = true)
+    public OrderDTO findById(Long id) {
+        Order order = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+        authService.validateSelfOrAdmin(order.getClient().getId());
+        return new OrderDTO(order);
     }
 
     @Transactional
